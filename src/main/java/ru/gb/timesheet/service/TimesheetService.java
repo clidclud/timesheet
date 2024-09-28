@@ -33,19 +33,19 @@ public class TimesheetService {
 
     public Timesheet create(Timesheet timesheet) {
         timesheet.setCreatedAt(LocalDate.now());
-        if (!projectRepository.existsById(timesheet.getProjectId())) {
-            throw new IllegalArgumentException("Проект с id " + timesheet.getProjectId() + " не найден");
+        if (!projectRepository.existsById(timesheet.getProjectName())) {
+            throw new IllegalArgumentException("Проект с id " + timesheet.getProjectName() + " не найден");
         }
         return repository.create(timesheet);
     }
 
-        public void delete (Long id){
-            repository.delete(id);
-        }
+    public void delete(Long id) {
+        repository.delete(id);
+    }
 
     public List<Timesheet> getTimesheetsByProjectId(Long projectId) {
         return repository.getAll().stream()
-                .filter(timesheet -> Objects.equals(timesheet.getProjectId(), projectId))
+                .filter(timesheet -> Objects.equals(timesheet.getProjectName(), projectId))
                 .collect(Collectors.toList());
     }
-    }
+}

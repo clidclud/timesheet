@@ -11,6 +11,7 @@ import ru.gb.timesheet.service.TimesheetService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,7 @@ public class TimesheetController {
         Optional<Timesheet> timesheetOpt = timesheetService.getById(id);
         if (timesheetOpt.isPresent()) {
             Timesheet timesheet = timesheetOpt.get();
-            Optional<Project> projectOpt = projectService.getById(timesheet.getProjectId());
+            Optional<Project> projectOpt = projectService.getById(timesheet.getProjectName());
             if (projectOpt.isPresent()) {
                 String projectName = projectOpt.get().getName();
                 TimesheetResponse response = new TimesheetResponse(timesheet, projectName);
